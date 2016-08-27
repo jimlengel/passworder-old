@@ -1,12 +1,17 @@
 
+
 <div class="container">
-<a href="/students">&lt; back to student page</a>
+<a href="/students">&lt; back to student page</a><br>
+<a href="/students">no more emails to enter &gt;</a>
 
 <h4>1. Enter one email per line:</h4>
-<form action="/students" method="post">
-  <div class="form-group"><textarea class="form-control" name="email_list" rows="18" cols="16"></textarea></div>
+
+<form action="/students/emails" method="post">
+  <div class="form-group">
+  	<input type="text" class="form-control" name="student[email]"></div>
 <h4>2. Enter submit:</h4>
-  <div class="form-group"><input class="form-control" type="submit" value="submit"></div>
+  <div class="form-group">
+  	<input class="form-control" type="submit" value="submit"></div>
 </form>
 
 </div>
