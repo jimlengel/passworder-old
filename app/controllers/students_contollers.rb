@@ -7,40 +7,55 @@ get '/students/emails' do
 end
 
 post '/students/emails' do
-  # emails = params[:email_list].split(' ')
-  # emails.each do |email|
-  #   @student = Students.new(email)    
-  # end
   p '***************************************'
   p params[:student]
+
   @student = Student.new(params[:student])
   if @student.save
     redirect "/students/new"
   else
     p 'no'
-  end
-
-  # if @entry.save
-  #   redirect "/show-one-entry/#{@entry.id}"
-  # else
   #   @errors = @entry.errors.full_messages
   #   erb :'entries/new'
-  # end
-
-
-  # params[:email_list]
-  # erb :'students/new'
+  end
 end
-
-# get 'students/emails' do
-#   erb :'students/emails'
-# end
 
 get '/students/new' do
   erb :'/students/new'
   # erb :'students/new'
 end
 
+post '/students/confirm' do
+  student_list = Student.all
+  p student_list.length
+  p params[:word_list]
+  list = params[:word_list].split(' ')
+  passwords = []
+  list.each do |word|
+    passwords << "#{rand(10..99)}#{word}"
+  end
+  p passwords
+  p student_list
+  # student_list.each do |student|
+  #   # passwords.cycle do |password|
+  #     p student
+  #   # end
+  # end
+  number_of_students = student_list.length
+  counter = 1
+  until counter == number_of_students
+    a = Student.find(counter)
+    p a.email
+    a.password = 'test456'
+    a.save
+    p a.password
+    counter += 1
+  end
+
+  
+
+  # erb :'students/new'
+end
 
 # post '/students' do
 #   # list = params[:word_list]
