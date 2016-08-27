@@ -6,52 +6,68 @@ get '/students/emails' do
   erb :'students/emails'
 end
 
-post '/students/emails' do
-  p '***************************************'
-  p params[:student]
+get '/students/display_emails' do
+  erb :'students/display_emails'
+end
 
+post '/students/emails' do
   @student = Student.new(params[:student])
+  @students = Student.all
   if @student.save
-    redirect "/students/new"
+    'yes'
+    erb :"/students/emails"
+    # erb :"/students/display_emails"
   else
     p 'no'
   #   @errors = @entry.errors.full_messages
   #   erb :'entries/new'
+    ##############################
+    ### THIS NEEDS TO BE FIXED ###
+    ##############################
   end
 end
 
 get '/students/new' do
+
   erb :'/students/new'
-  # erb :'students/new'
 end
 
-post '/students/confirm' do
+post '/students/new' do
   student_list = Student.all
-  p student_list.length
-  p params[:word_list]
+
   list = params[:word_list].split(' ')
   passwords = []
   list.each do |word|
     passwords << "#{rand(10..99)}#{word}"
   end
-  p passwords
-  p student_list
-  # student_list.each do |student|
-  #   # passwords.cycle do |password|
-  #     p student
-  #   # end
-  # end
+  
   number_of_students = student_list.length
-  counter = 1
-  until counter == number_of_students
-    a = Student.find(counter)
-    p a.email
-    a.password = 'test456'
-    a.save
-    p a.password
-    counter += 1
-  end
+  p "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+  p number_of_students
+  p passwords.length
 
+  if number_of_students > passwords.length
+    ##############################
+    ### THIS NEEDS TO BE FIXED ###
+    ##############################
+    @errors = "You did not enter enough words."
+    erb :"students/new"
+  else
+    p Student.all
+    counter = 1
+    pwd_counter = 0
+    until counter > number_of_students
+        a = Student.find(counter)
+        p a.email
+        a.password = "#{passwords[pwd_counter]}"
+        a.save
+        p a.password
+        counter += 1
+        pwd_counter += 1
+    end
+    @students = Student.all
+    erb :'students/display'
+  end
   
 
   # erb :'students/new'

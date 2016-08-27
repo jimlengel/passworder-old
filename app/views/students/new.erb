@@ -1,12 +1,24 @@
 
 
 <div class="container">
-<a href="/students">&lt; back to student page</a>
+<a href="/students">&lt; back to main page</a>
 
-<h4>1. Enter one word per line:</h4>
-<form action="/students/confirm" method="post">
+  <% if @errors %>
+    <span>Your entry could not be saved:</span>
+      <ul class="errors">
+        <% @errors.each do |error| %>
+          <li class="error"><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4>1. Enter at least <%= Student.all.length %> words.</h4>
+
+  <h4>2. Enter one word per line:</h4>
+<form action="/students/new" method="post">
   <div class="form-group"><textarea class="form-control" name="word_list" rows="18" cols="16"></textarea></div>
-<h4>2. Enter submit:</h4>
+<h4>3. Enter submit:</h4>
   <div class="form-group"><input class="form-control" type="submit" value="submit"></div>
 </form>
 

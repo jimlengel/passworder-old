@@ -1,0 +1,21 @@
+display_emails.erb
+
+<div class="container">
+
+  <table class="table table-bordered">
+  	<tr>
+  	  <th>EMAIL</th>
+  	</tr>
+  <% @students.each do |student| %>
+  	
+  	<tr>
+  	  <td><%= student.email %></td>
+  	</tr>
+  <% end %>
+  </table>
+
+  <a href="/students/new">Enter words to create passwords &gt;</a>
+
+  <p></p>
+  <p></p>
+</div>

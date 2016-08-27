@@ -1,0 +1,22 @@
+display.erb
+
+<div class="container">
+  <div><a href="/students/emails">Oops! Need to enter more emails</a></div>
+  <div>&nbsp;</div>
+  <div>
+  <table class="table table-bordered">
+  	<tr>
+  	  <th>EMAIL</th>
+  	  <th>PASSWORD</th>
+  	</tr>
+  <% @students.each do |student| %>
+  	
+  	<tr>
+  	  <td><%= student.email %></td>
+  	  <td><%= student.password %></td>
+  	</tr>
+  <% end %>
+  </table>
+  </div>
+
+</div>
