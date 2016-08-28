@@ -73,6 +73,37 @@ post '/students/new' do
   # erb :'students/new'
 end
 
+post '/students/text' do
+  all_students = Student.all
+  message = ""
+  all_students.each do |student|
+    message += student.email
+    message += " = "
+    message += student.password
+    message += "\n"
+  end
+  p message
+
+  to_number = "+" + params[:text_number].to_s
+  p '1111111111111111111111111111'
+
+  require 'twilio-ruby'
+
+
+
+  @client = Twilio::REST::Client.new account_sid, auth_token
+  message = @client.account.messages.create(:body => message,
+    :to => to_number,    # Replace with your phone number
+    :from => "+14158516988")  # Replace with your Twilio number
+  if message.sid
+    p message.sid
+  else
+    ####### NEED SOME ERROR HANDLING HERE ######
+    p "It didn't work."
+    ####### ############################# ######
+  end
+end
+
 # post '/students' do
 #   # list = params[:word_list]
 #   # p "#{list}"
